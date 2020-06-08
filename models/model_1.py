@@ -11,10 +11,7 @@ NUM_EPOCHS = 20
 
 class IMDBDataset:
     def __init__(self, part):
-        # for simplicity, load all three dataset partitions ({train, test, unsupervised})
-        # but only expose the relevant one
-        self._raw_dataset = nlp.load_dataset('imdb')
-        self.dataset = self._raw_dataset['train']
+        self.dataset = nlp.load_dataset('imdb')['train']
         self.tokenizer = transformers.GPT2Tokenizer.from_pretrained('gpt2')
     
     def __getitem__(self, idx):
@@ -43,18 +40,17 @@ class IMDBSentimentClassificationModel(nn.Module):
             nn.Linear(2**4, 2),
             nn.LogSoftmax(dim=0)
         ])
-        self.flip = lambda tensor: torch.transpose(tensor, *(1, 0))
     
     def forward(self, tokens):
         hidden_states, _ = self.gpt2_model(tokens)
-        final_hidden_state = hidden_states[-1]
+        final_hidden_state = hidden_states[:, -1, :]
         out = self.head(final_hidden_state)
-        out = self.flip(out)
         return out
 
 def get_dataloader():
     dataset = IMDBDataset('train')
-    dataloader = DataLoader(dataset, batch_size=2, shuffle=True)
+    # this model is memory-limited, a solo V100 can only do 4 items per batch!
+    dataloader = DataLoader(dataset, batch_size=4, shuffle=True)
     return dataloader
 
 def get_model():

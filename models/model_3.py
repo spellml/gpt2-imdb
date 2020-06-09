@@ -49,8 +49,11 @@ class IMDBSentimentClassificationModel(nn.Module):
 
 def get_dataloader():
     dataset = IMDBDataset('train')
+
     # this model is memory-limited, a solo V100 can only do 4 items per batch!
-    dataloader = DataLoader(dataset, batch_size=4, shuffle=True)
+    # NEW
+    # Multiply the base batch size by the number of GPUs available.
+    dataloader = DataLoader(dataset, batch_size=4 * torch.cuda.device_count(), shuffle=True)
     return dataloader
 
 def get_model():

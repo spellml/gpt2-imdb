@@ -66,7 +66,7 @@ def get_dataloader(rank, world_size):
     
     # NEW
     sampler = DistributedSampler(dataset, rank=rank, num_replicas=world_size, shuffle=True)
-    dataloader = DataLoader(dataset, batch_size=4, sampler=sampler)
+    dataloader = DataLoader(dataset, batch_size=2, sampler=sampler)
     
     return dataloader
 
@@ -74,10 +74,15 @@ def get_model():
     return IMDBSentimentClassificationModel()
 
 def train(rank, num_epochs, world_size):
+    print(f"Rank {rank}/{world_size} training process initialized.\n")
+    
+    model = get_model()
+    model.cuda(rank)
+    model.train()
+    
     # NEW
     init_process(rank, world_size)
-    print(f"Rank {rank}/{world_size} training process initialized.\n")
-        
+    
     # NEW
     # Since this is a single-instance multi-GPU training script, it's important
     # that only one process handle downloading of the data, to avoid race conditions
@@ -89,10 +94,6 @@ def train(rank, num_epochs, world_size):
     dist.barrier()
     print(f"Rank {rank}/{world_size} training process passed data download barrier.\n")
     
-    model = get_model()
-    model.cuda(rank)
-    model.train()
-
     # NEW
     model = DistributedDataParallel(model, device_ids=[rank])
     

@@ -1,4 +1,4 @@
-# gpt2-imdb <a href="https://web.spell.ml/workspace_create?workspaceName=gpt2-imdb&githubUrl=https%3A%2F%2Fgithub.com%2Fspellml%2Fgpt2-imdb&pip=transformers,tokenizers"><img src=https://spell.ml/badge.svg height=20px/></a>
+# gpt2-imdb <a href="https://web.spell.ml/workspace_create?workspaceName=gpt2-imdb&githubUrl=https%3A%2F%2Fgithub.com%2Fspellml%2Fgpt2-imdb&pip=transformers,tokenizers,nlp"><img src=https://spell.ml/badge.svg height=20px/></a>
 
 `pytorch` scripts training GPT2 (trained from scratch) on the IMDB movie reviews dataset. The model and data are via `hugginface` `transformers`.
 

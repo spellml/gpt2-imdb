@@ -8,35 +8,35 @@ To run on Spell:
 
 ```bash
 spell run --machine-type v100 \
-  --github-url https://github.com/ResidentMario/spell-gpt2-imdb.git \
+  --github-url https://github.com/spellml/gpt2-imdb.git \
   --pip transformers --pip nlp --pip tokenizers \
   --tensorboard-dir /spell/tensorboards/model_1/ \
   "python models/model_1.py"
 ```
 ```bash
 spell run --machine-type v100x4 \
-  --github-url https://github.com/ResidentMario/spell-gpt2-imdb.git \
+  --github-url https://github.com/spellml/gpt2-imdb.git \
   --pip transformers --pip nlp --pip tokenizers \
   --tensorboard-dir /spell/tensorboards/model_2/ \
   "python models/model_2.py"
 ```
 ```bash
 spell run --machine-type v100x8 \
-  --github-url https://github.com/ResidentMario/spell-gpt2-imdb.git \
+  --github-url https://github.com/spellml/gpt2-imdb.git \
   --pip transformers --pip nlp --pip tokenizers \
   --tensorboard-dir /spell/tensorboards/model_2/ \
   "python models/model_2.py"
 ```
 ```bash
 spell run --machine-type v100x4 \
-  --github-url https://github.com/ResidentMario/spell-gpt2-imdb.git \
+  --github-url https://github.com/spellml/gpt2-imdb.git \
   --pip transformers --pip nlp --pip tokenizers \
   --tensorboard-dir /spell/tensorboards/model_3/ \
   "python models/model_3.py"
 ```
 ```bash
 spell run --machine-type v100x8 \
-  --github-url https://github.com/ResidentMario/spell-gpt2-imdb.git \
+  --github-url https://github.com/spellml/gpt2-imdb.git \
   --pip transformers --pip nlp --pip tokenizers \
   --tensorboard-dir /spell/tensorboards/model_3/ \
   "python models/model_3.py"
